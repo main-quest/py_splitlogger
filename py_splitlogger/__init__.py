@@ -12,13 +12,17 @@ class SplitLogger(object):
         self.terminal = sys.stdout
         self.lines_read_so_far = 0
         self.released = False
+        self.thread = None
 
         fs_write = open(self.file, 'w')
         sys.stderr = fs_write
         sys.stdout = fs_write
 
-        self.t = Thread(target=self.update_terminal)
-        self.t.start()
+    def __enter__(self):
+        self.run()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.release()
 
     def update_terminal(self):
         last_iter = False
@@ -49,6 +53,10 @@ class SplitLogger(object):
                 continue
 
             time.sleep(.1)
+
+    def run(self):
+        self.thread = Thread(target=self.update_terminal)
+        self.thread.start()
 
     def release(self):
         self.released = True

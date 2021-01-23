@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='py_splitlogger',
-    version='0.0.1',
+    version='0.0.2',
     description="Log to both file and console in real-time. " +
                 "'Install by 'pip install git+https://github.com/tfgstudios/py_splitlogger.git#egg=py_splitlogger'",
     url='https://github.com/tfgstudios/py_splitlogger.git',
